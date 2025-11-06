@@ -1,0 +1,39 @@
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* Main Config 1080p */
+
+@import "~/.config/rofi/master-config.rasi" 
+
+/* ---- Configuration ---- */
+configuration {
+	font: "SFNS Display Bold 13";
+}
+
+/* ---- Window ---- */
+window {
+    width: 50%;
+}
+
+/* ---- Listview ---- */
+listview {
+  columns: 2;
+  lines: 3;
+  fixed-height:	true;
+}
+
+/* ---- Element ---- */
+element {
+  orientation: vertical;
+  padding: 2px 0px 0px 0px;
+  spacing: 6px;
+  border-radius: 2px;
+}
+
+element-icon {
+  size: 6%;
+}
+
+element-text {
+  font: "SFNS Display Bold 12";
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}
