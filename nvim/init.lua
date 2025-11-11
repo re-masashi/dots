@@ -11,6 +11,11 @@ vim.opt.splitbelow = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 2
 
 -- Visual settings
 vim.opt.termguicolors = true
@@ -18,7 +23,7 @@ vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 
 -- Set leader key
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus"
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 
@@ -84,7 +89,7 @@ local plugins = {
 		},
 		config = function()
 			require("mason-nvim-dap").setup({
-				ensure_installed = { "cppdbg", "codelldb", "node2" },
+				ensure_installed = { "cppdbg", "codelldb" },
 				automatic_installation = true,
 			})
 
@@ -122,19 +127,48 @@ local plugins = {
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
-		opts_extend = { "sources.default" },
-		sources = {
-			default = { "lsp", "path", "buffer", "copilot" },
-			providers = {
-				copilot = {
-					name = "copilot",
-					module = "blink-cmp-copilot",
-					score_offset = 100,
-					async = true,
+		event = "InsertEnter",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"giuxtaposition/blink-cmp-copilot",
+		},
+		opts = {
+			enabled = function()
+				return vim.bo.buftype ~= "prompt"
+			end,
+			keymap = { preset = "super-tab" },
+			appearance = {
+				use_nvim_cmp_as_default = true,
+				nerd_font_variant = "mono",
+			},
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "copilot" },
+				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-cmp-copilot",
+						score_offset = 100,
+						async = true,
+					},
 				},
 			},
+			trigger = {
+				prefetch_on_insert = true,
+			},
+			completion = {
+				accept = { auto_brackets = { enabled = true } },
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 50,
+					window = { border = "rounded" },
+				},
+				ghost_text = { enabled = true },
+				menu = { border = "rounded" },
+			},
+			signature = { enabled = true },
 		},
 	},
+
 	{ "rafamadriz/friendly-snippets" },
 	{
 		"L3MON4D3/LuaSnip",
@@ -156,22 +190,11 @@ local plugins = {
 		"giuxtaposition/blink-cmp-copilot",
 	},
 
-	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		build = "make",
-		config = function()
-			require("avante").setup({
-				provider = "copilot",
-			})
-		end,
-	},
-
 	{ "stevearc/dressing.nvim" },
 
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		opts = { file_types = { "markdown", "Avante" } },
+		opts = { file_types = { "markdown" } },
 	},
 
 	{
@@ -434,14 +457,7 @@ vim.keymap.set("n", "<leader>/", function()
 end)
 vim.keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 
--- Avante AI keybinds
-vim.keymap.set("n", "<leader>aa", "<cmd>AvanteAsk<CR>", { desc = "Ask Avante" })
-vim.keymap.set("v", "<leader>ac", "<cmd>AvanteChat<CR>", { desc = "Chat with Avante" })
-vim.keymap.set("v", "<leader>ae", "<cmd>AvanteEdit<CR>", { desc = "Edit with Avante" })
-vim.keymap.set("n", "<leader>af", "<cmd>AvanteFocus<CR>", { desc = "Focus Avante" })
-vim.keymap.set("n", "<leader>ah", "<cmd>AvanteHistory<CR>", { desc = "Avante History" })
-vim.keymap.set("n", "<leader>am", "<cmd>AvanteModels<CR>", { desc = "Select Avante Model" })
-vim.keymap.set("n", "<leader>ar", "<cmd>AvanteRefresh<CR>", { desc = "Refresh Avante" })
-vim.keymap.set("n", "<leader>at", "<cmd>AvanteToggle<CR>", { desc = "Toggle Avante Sidebar" })
-vim.keymap.set("n", "<leader>as", "<cmd>AvanteStop<CR>", { desc = "Stop Avante Request" })
 vim.keymap.set("n", "<leader>'", ":nohlsearch<CR>", { desc = "Clear search highlight" })
+vim.keymap.set("i", "<C-space>", function()
+	require("blink.cmp").show()
+end)
