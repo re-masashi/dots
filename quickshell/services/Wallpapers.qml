@@ -85,7 +85,7 @@ Searcher {
     Process {
         id: getWallsProc
 
-        running: true
+        running: false  // Disable wallpaper loading to save resources since user doesn't need it
         command: ["find", Paths.expandTilde(Config.paths.wallpaperDir), "-type", "d", "-path", '*/.*', "-prune", "-o", "-not", "-name", '.*', "-type", "f", "-print"]
         stdout: StdioCollector {
             onStreamFinished: wallpapers.model = text.trim().split("\n").filter(w => Images.isValidImageByName(w)).sort()
@@ -95,7 +95,7 @@ Searcher {
     Process {
         id: watchWallsProc
 
-        running: true
+        running: false  // Disable wallpaper monitoring to save resources since user doesn't need it
         command: ["inotifywait", "-r", "-e", "close_write,moved_to,create", "-m", Paths.expandTilde(Config.paths.wallpaperDir)]
         stdout: SplitParser {
             onRead: data => {

@@ -47,7 +47,7 @@ Item {
 
     Timer {
         running: Players.active?.isPlaying ?? false
-        interval: Config.dashboard.mediaUpdateInterval
+        interval: 2000  // Changed from configurable value to 2000ms to reduce CPU usage
         triggeredOnStart: true
         repeat: true
         onTriggered: Players.active?.positionChanged()

@@ -45,7 +45,7 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitHeight"
-                duration: Appearance.anim.durations.small  // Reduced from expressiveDefaultSpatial (500ms) to small (200ms)
+                duration: Appearance.anim.durations.small  // Changed from expressiveDefaultSpatial (500ms) to small (200ms)
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.standard
             }
@@ -57,7 +57,7 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitHeight"
-                duration: Appearance.anim.durations.small  // Reduced from normal (400ms) to small (200ms)
+                duration: Appearance.anim.durations.small  // Changed from normal (400ms) to small (200ms)
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.standardDecel
             }
@@ -67,7 +67,6 @@ Item {
     Loader {
         id: content
 
-        // Use the original binding, but with optimized animations
         Component.onCompleted: active = Qt.binding(() => (root.visibilities.dashboard && Config.dashboard.enabled) || root.visible)
 
         anchors.horizontalCenter: parent.horizontalCenter

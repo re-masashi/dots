@@ -28,7 +28,7 @@ RowLayout {
     }
 
     Timer {
-        running: Players.active?.isPlaying ?? false
+        running: false  // Disable since user doesn't need lock functionality, so this won't be active
         interval: Config.dashboard.mediaUpdateInterval
         triggeredOnStart: true
         repeat: true

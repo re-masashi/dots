@@ -10,6 +10,16 @@ import QtQuick
 Searcher {
     id: root
 
+    component Action: QtObject {
+        required property string name
+        required property string desc
+        required property string icon
+        property bool disabled
+
+        function onClicked(list: AppList): void {
+        }
+    }
+
     readonly property list<Action> actions: [
         Action {
             name: qsTr("Calculator")
@@ -142,14 +152,4 @@ Searcher {
 
     list: actions.filter(a => !a.disabled)
     useFuzzy: Config.launcher.useFuzzy.actions
-
-    component Action: QtObject {
-        required property string name
-        required property string desc
-        required property string icon
-        property bool disabled
-
-        function onClicked(list: AppList): void {
-        }
-    }
 }

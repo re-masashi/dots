@@ -112,17 +112,17 @@ Item {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: Appearance.anim.durations.large 
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: Appearance.anim.curves.standard
         }
     }
 
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: Appearance.anim.durations.large  
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: Appearance.anim.curves.standard
         }
     }
 

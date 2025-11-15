@@ -135,7 +135,7 @@ Row {
             Timer {
                 running: true
                 repeat: true
-                interval: 15000
+                interval: 30000  // Increased from 15000ms (15s) to 30000ms (30s)
                 onTriggered: fileUptime.reload()
             }
 

@@ -9,7 +9,8 @@ Singleton {
     property real bpm: 1
 
     Process {
-        running: true
+        id: beatDetectorProc
+        running: false  // Only run when explicitly needed
         command: [Quickshell.env("CAELESTIA_BD_PATH") || "/home/nafi/.config/quickshell/caelestia/assets/beat_detector", "190", "--no-log", "--no-stats", "--no-visual"]
         stdout: SplitParser {
             onRead: data => {

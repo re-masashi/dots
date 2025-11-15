@@ -6,6 +6,7 @@ JsonObject {
     property real clearThreshold: 0.3
     property int expandThreshold: 20
     property bool actionOnClick: false
+    property bool dndMode: true  // Add DND mode toggle
     property Sizes sizes: Sizes {}
 
     component Sizes: JsonObject {

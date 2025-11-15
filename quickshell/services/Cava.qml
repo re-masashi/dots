@@ -24,8 +24,8 @@ Singleton {
     Process {
         id: cavaProc
 
-        running: true
-        command: ["sh", "-c", `printf '[general]\nframerate=60\nbars=${Config.dashboard.visualiserBars}\nsleep_timer=3\n[output]\nchannels=mono\nmethod=raw\nraw_target=/dev/stdout\ndata_format=ascii\nascii_max_range=100' | cava -p /dev/stdin`]
+        running: root.refCount > 0  // Only run when actually needed
+        command: ["sh", "-c", `printf '[general]\nframerate=30\nbars=${Config.dashboard.visualiserBars}\nsleep_timer=3\n[output]\nchannels=mono\nmethod=raw\nraw_target=/dev/stdout\ndata_format=ascii\nascii_max_range=100' | cava -p /dev/stdin`]  // Reduced framerate from 60 to 30
         stdout: SplitParser {
             onRead: data => {
                 if (root.refCount)

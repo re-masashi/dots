@@ -34,7 +34,8 @@ WrapperItem {
 
     Timer {
         running: true
-        interval: 10
+        interval: 1000  // Changed from 10ms to 1000ms to dramatically reduce CPU usage
+        repeat: true
         onTriggered: notifs.item?.countChanged()
     }
 

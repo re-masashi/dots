@@ -15,7 +15,7 @@ vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 2
+vim.opt.foldlevelstart = 5
 
 -- Visual settings
 vim.opt.termguicolors = true
@@ -51,6 +51,7 @@ local plugins = {
 	-- UI
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-tree/nvim-tree.lua" },
+	{ "altermo/nwm", branch = "x11" },
 	-- {
 	-- 	"lukas-reineke/indent-blankline.nvim",
 	-- 	main = "ibl",
@@ -434,7 +435,7 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags)
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "File explorer" })
 
 -- Formatting
-vim.keymap.set("n", "<leader>fo", function()
+vim.keymap.set("n", "<leader>f ", function()
 	require("conform").format()
 end)
 vim.keymap.set("v", "<leader>fo", function()

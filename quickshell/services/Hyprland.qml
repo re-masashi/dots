@@ -48,7 +48,7 @@ Singleton {
     }
 
     Process {
-        running: true
+        running: false  // Only run when needed to reduce resource usage
         command: ["hyprctl", "-j", "devices"]
         stdout: StdioCollector {
             onStreamFinished: root.kbLayout = JSON.parse(text).keyboards.find(k => k.main).active_keymap.slice(0, 2).toLowerCase()
