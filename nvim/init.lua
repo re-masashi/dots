@@ -15,7 +15,7 @@ vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 5
+vim.opt.foldlevelstart = 10
 
 -- Visual settings
 vim.opt.termguicolors = true
@@ -66,6 +66,7 @@ local plugins = {
 			{ "<C-n>", "<Plug>(VM-Find-Subword-Under)", mode = "v" },
 		},
 	},
+	{ "nvim-mini/mini.icons", version = false },
 
 	-- Fuzzy finder
 	{ "nvim-telescope/telescope.nvim" },
@@ -282,13 +283,24 @@ require("lazy").setup(plugins)
 vim.cmd.colorscheme("tokyodark")
 
 -- Status line
-require("lualine").setup()
+require("lualine").setup({
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diagnostics" },
+		lualine_c = { "filename" },
+		lualine_x = { "filetype" },
+		lualine_y = {}, -- {'progress'},
+		lualine_z = { "location" },
+	},
+})
 
 -- File tree
 require("nvim-tree").setup()
 
 -- Telescope
 require("telescope").setup()
+
+require("render-markdown").setup({ latex = { enabled = false } })
 
 vim.api.nvim_create_autocmd("FocusLost", {
 	command = "silent! wa",
@@ -316,7 +328,7 @@ require("mason-lspconfig").setup({
 		"tailwindcss", -- Tailwind (if needed)
 		"clangd", -- C++
 		"lua_ls", -- Lua
-		"pyright", -- Python (bonus)
+		"pyright", -- Python
 	},
 	auto_install = true,
 })
