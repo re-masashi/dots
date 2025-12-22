@@ -408,6 +408,18 @@ require("conform").setup({
 	},
 })
 
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- parser_config.suicmez = {
+-- 	install_info = {
+-- 		url = "/home/nafi/langjam/suicmez/syntax-highlighting/nvim",
+-- 		files = { "src/parser.c" },
+-- 		branch = "main",
+-- 		generate_requires_npm = false,
+-- 		requires_generate_from_grammar = false,
+-- 	},
+-- 	filetype = "suicmez",
+-- }
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"rust",
@@ -423,6 +435,9 @@ require("nvim-treesitter.configs").setup({
 		"css",
 		"html",
 		"svelte",
+
+		-- custom ones
+		-- "suicmez",
 	},
 	auto_install = true,
 	highlight = { enable = true },
@@ -432,6 +447,7 @@ require("nvim-treesitter.configs").setup({
 vim.filetype.add({
 	extension = {
 		svx = "markdown",
+		sui = "ruby",
 	},
 })
 

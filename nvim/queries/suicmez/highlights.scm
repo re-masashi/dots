@@ -1,0 +1,1 @@
+syntax-highlighting/nvim/queries/highlights.scm
